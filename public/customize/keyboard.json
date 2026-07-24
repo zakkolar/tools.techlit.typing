@@ -11,29 +11,12 @@
       "required": true,
       "description": "The word or phrase for players to type"
     },
-     {
-      "label": "Fillable item",
-      "key": "mode",
-      "type": "select",
-      "options" : {
-          "red_bar": "Red bar",
-          "orange_bar": "Orange bar",
-          "yellow_bar": "Yellow bar",
-          "green_bar": "Green bar",
-          "blue_bar": "Blue bar",
-          "purple_bar": "Purple bar",
-          "random_bar": "Randomly colored bars",
-        "skyscraper": "Skyscraper"
-      },
-      "description": "The items that fill up as students type correct letters.",
-      "default": "green_bar"
-    },
     {
-      "label": "Fillable item capacity",
+      "label": "Letters per bar",
       "key": "capacity",
       "type": "number",
       "default": 10,
-      "description": "Number of correct letters/characters that fill one fillable item."
+      "description": "Number of correct letters/characters that fill one progress bar."
     },
     {
       "label": "Treat fixed typos as accurate",

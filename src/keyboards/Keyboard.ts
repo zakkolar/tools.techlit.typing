@@ -8,7 +8,7 @@ export class Keyboard {
   constructor(params: any){
     const { keys, keyHeight } = params;
     this.keys = keys || [[]];
-    this.keyHeight = keyHeight || 50;
+    this.keyHeight = keyHeight || 54;
   }
 
 }

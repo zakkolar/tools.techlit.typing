@@ -13,11 +13,6 @@ const router = createRouter({
       name: 'play',
       component: () => import('@/views/PlayView.vue'),
     },
-    {
-      path: '/fillables',
-      name: 'fillables',
-      component: () => import('@/views/FillablesView.vue'),
-    },
   ],
 })
 

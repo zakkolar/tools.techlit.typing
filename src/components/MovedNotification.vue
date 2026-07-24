@@ -30,17 +30,37 @@ function acknowledge() {
 
 <style scoped>
 .redirect-banner {
-  padding: 8px 34px 8px 8px;
-  background-color: #ffffa2;
+  padding: 10px 40px 10px 16px;
+  background: var(--color-warm-tint);
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-body);
+  font-size: 14px;
   position: relative;
+}
+
+.redirect-banner a {
+  color: var(--color-warm-deep);
+  font-weight: 600;
 }
 
 .redirect-banner button {
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 8px;
+  top: 8px;
   border: none;
+  background: transparent;
+  color: var(--color-ink-soft);
   width: 24px;
+  height: 24px;
+  border-radius: 4px;
   text-align: center;
+  cursor: pointer;
+  font-family: var(--font-display);
+}
+
+.redirect-banner button:hover {
+  background: rgba(42, 38, 33, 0.08);
+  color: var(--color-ink);
 }
 </style>

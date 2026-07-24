@@ -2,8 +2,7 @@
 import {ref, reactive, computed, onMounted, onUnmounted} from 'vue'
 import {Chromebook} from '@/keyboards/Chromebook'
 import type {Key} from '@/keyboards/Key'
-import {FillableTypes, getFillableConstructor} from '@/fillables/Fillables'
-import type {Fillable} from '@/fillables/Fillable'
+import {Fillable} from '@/fillables/Fillable'
 import MovedNotification from '@/components/MovedNotification.vue'
 
 interface Settings {
@@ -12,7 +11,6 @@ interface Settings {
   sound: boolean
   forceCorrectMistakes: boolean
   capacity: number
-  mode: FillableTypes
   useTimer: boolean
   startingTime: number
   showTimer: boolean
@@ -32,6 +30,8 @@ const currentTime = ref(0)
 const started = ref(false)
 const touchDevice = ref(false)
 const fillables = ref<Fillable[]>([])
+const showKeyboardHint = ref(false)
+let keyboardHintTimeout: ReturnType<typeof setTimeout> | null = null
 
 const settings = reactive<Settings>({
   undoIncorrect: false,
@@ -39,7 +39,6 @@ const settings = reactive<Settings>({
   sound: true,
   forceCorrectMistakes: true,
   capacity: 10,
-  mode: FillableTypes.GREEN_BAR,
   useTimer: false,
   startingTime: 0,
   showTimer: false,
@@ -227,13 +226,6 @@ function readHashParams() {
   settings.showPlayAgain = getParam(params, 'showPlayAgain', 'boolean', settings.showPlayAgain)
   currentTime.value = settings.startingTime
 
-  const mode = getParam(params, 'mode', 'string', settings.mode).toUpperCase()
-
-  if (mode in FillableTypes) {
-    settings.mode = FillableTypes[mode as keyof typeof FillableTypes]
-  } else {
-    settings.mode = FillableTypes.GREEN_BAR
-  }
   reset()
 }
 
@@ -251,6 +243,16 @@ function reset() {
 
 function pause() {
   paused.value = true
+}
+
+function onKeyTap() {
+  showKeyboardHint.value = true
+  if (keyboardHintTimeout) {
+    clearTimeout(keyboardHintTimeout)
+  }
+  keyboardHintTimeout = setTimeout(() => {
+    showKeyboardHint.value = false
+  }, 2000)
 }
 
 function play() {
@@ -289,8 +291,7 @@ function removeAllListeners() {
 }
 
 function addFillable() {
-  const Constructor = fillableConstructor.value
-  fillables.value.push(new Constructor({capacity: settings.capacity}))
+  fillables.value.push(new Fillable({capacity: settings.capacity}))
 }
 
 function playSound(s: string) {
@@ -337,8 +338,6 @@ const currentFillable = computed<Fillable | null>(() => {
 
 const fillablesReversed = computed(() => fillables.value.slice().reverse())
 
-const fillableConstructor = computed(() => getFillableConstructor(settings.mode))
-
 const minutes = computed(() =>
     Math.floor(currentTime.value / 60).toString().padStart(2, '0'),
 )
@@ -384,6 +383,9 @@ onUnmounted(() => {
   if (textboxInputHandler) {
     textbox?.removeEventListener('input', textboxInputHandler)
     textbox?.removeEventListener('keyup', textboxInputHandler)
+  }
+  if (keyboardHintTimeout) {
+    clearTimeout(keyboardHintTimeout)
   }
 })
 </script>
@@ -437,8 +439,13 @@ onUnmounted(() => {
               :key="keyIndex"
               v-html="Array.isArray(key.label) ? key.label.join('<br>') : key.label"
               :style="{ height: keyboard.keyHeight + 'px', width: keyboard.keyHeight * key.width + 'px' }"
+              @click="onKeyTap"
           ></div>
         </div>
+
+        <transition name="keyboard-hint">
+          <div class="keyboard-hint" v-if="showKeyboardHint">Press the key on your real keyboard!</div>
+        </transition>
       </div>
     </div>
 
@@ -484,15 +491,34 @@ onUnmounted(() => {
 </template>
 
 <style>
-body {
-  font-family: sans-serif;
+#game {
+  padding: 24px 16px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#timer {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: 24px;
+  color: var(--color-warm-deep);
 }
 
 .keyboard {
-  border: 1px solid #ccc;
-  padding: 3px;
+  background: var(--color-paper-raised);
+  border: 1px solid var(--color-rule);
+  border-radius: 12px;
+  padding: 10px;
   overflow: auto;
   position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 24px auto 0;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .row {
@@ -502,24 +528,37 @@ body {
 }
 
 .key {
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  box-shadow: 0 2px 0 var(--color-rule);
   margin: 3px;
+  padding: 0 5px;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   float: left;
   position: relative;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+}
+
+.key.current {
+  background: var(--color-warm);
+  border-color: var(--color-warm-deep);
+  color: var(--color-paper-raised);
+  box-shadow: 0 2px 0 var(--color-warm-deep);
 }
 
 .pressed {
-  background-color: #beffff;
+  background: var(--color-accent-tint);
 }
 
 .letters {
-  overflow: auto;
-  margin: 20px 0;
+  margin: 40px 0 32px;
 }
 
 .letters ul {
@@ -527,62 +566,143 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .letters li {
-  float: left;
-  font-size: 30px;
-  width: 40px;
-
-  border-color: #444;
-  border-width: 1px;
-  margin: 0 5px;
+  font-family: var(--font-display);
+  font-size: 34px;
+  width: 48px;
+  height: 60px;
+  background: var(--color-paper-raised);
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  color: var(--color-ink);
   text-align: center;
-  padding: 5px;
-  display: block;
-}
-
-.key.current {
-  background-color: #fcdc97;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .letters li.current {
-  border-bottom: solid;
-  border-width: 4px;
-  margin-top: 4px;
+  border-color: var(--color-warm);
+}
+
+.letters li.current::after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 6px;
+  height: 3px;
+  background: var(--color-warm);
+  animation: caret-blink 1s step-end infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.15;
+  }
 }
 
 .letters li.correct {
-  color: #00b200;
+  color: var(--color-correct);
+  background: var(--color-correct-tint);
+  border-color: var(--color-correct);
 }
 
 .letters li.incorrect {
-  background-color: #ff7171;
+  color: var(--color-incorrect);
+  background: var(--color-incorrect-tint);
+  border-style: dashed;
+  border-color: var(--color-incorrect);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-incorrect);
+}
+
+.letters li.incorrect::after {
+  content: '\00d7';
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  z-index: 1;
+  border-radius: 50%;
+  background: var(--color-incorrect);
+  color: var(--color-paper-raised);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
 }
 
 .fillables {
-  overflow: auto;
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-#timer {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
+.results {
+  margin: 24px auto 0;
+  border-collapse: collapse;
+}
+
+.results th,
+.results td {
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--color-rule);
 }
 
 .results th {
   text-align: right;
+  color: var(--color-ink-soft);
+  font-weight: 500;
 }
 
 .results td {
   text-align: left;
 }
 
-.results {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+.keyboard-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  background: rgba(42, 38, 33, 0.72);
+  border-radius: 12px;
+  color: var(--color-paper-raised);
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.keyboard-hint-enter-active,
+.keyboard-hint-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.keyboard-hint-enter-from,
+.keyboard-hint-leave-to {
+  opacity: 0;
 }
 
 .messageScreenModal {
@@ -591,39 +711,56 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(42, 38, 33, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .messageScreen {
   text-align: center;
-  padding: 20px;
-  min-height: 30vh;
-  min-width: 500px;
-  width: 50vw;
+  padding: 32px;
+  min-height: 21vh;
+  min-width: 320px;
+  max-width: 90vw;
+  width: 520px;
   overflow: auto;
-  font-size: 22px;
-  background-color: white;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  top: 10vh;
-  border-style: solid;
-  border-width: 5px;
+  font-size: 18px;
+  background: var(--color-paper-raised);
+  position: relative;
+  margin-top: 10vh;
+  border: 1px solid var(--color-rule);
+  border-top: 4px solid var(--color-accent);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(42, 38, 33, 0.18);
 }
 
 #timeUp .fillables {
+  position: static;
+  left: auto;
+  width: auto;
+  margin-left: 0;
+  overflow: auto;
   display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
 }
 
 .messageScreen button {
-  font-size: 50px;
-  background-color: #83ff63;
+  font-size: 20px;
+  background: var(--color-accent);
+  color: var(--color-paper-raised);
   border-style: none;
+  border-radius: 6px;
   margin-top: 20px;
-  padding: 10px;
+  padding: 12px 28px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.messageScreen button:hover {
+  background: var(--color-accent-deep);
 }
 </style>
