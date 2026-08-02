@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 600 300"
+   width="600"
+   height="300"
+   version="1.1"
+   id="svg421"
+   sodipodi:docname="typing-thumbnail.svg"
+   inkscape:export-filename="typing-thumbnail.png"
+   inkscape:export-xdpi="320"
+   inkscape:export-ydpi="320"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs425">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter1430"
+       x="-0.016734694"
+       y="-0.065"
+       width="1.0395918"
+       height="1.1511538">
+      <feFlood
+         flood-opacity="0.0745098"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood1420" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1422" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="1"
+         result="blur"
+         id="feGaussianBlur1424" />
+      <feOffset
+         dx="1"
+         dy="1"
+         result="offset"
+         id="feOffset1426" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite1428" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix1432" />
+      <feFlood
+         id="feFlood1434"
+         flood-opacity="0.0745098"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite1436"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur1438"
+         in="composite1"
+         stdDeviation="1"
+         result="blur" />
+      <feOffset
+         id="feOffset1440"
+         dx="1"
+         dy="1"
+         result="offset" />
+      <feComposite
+         in2="offset"
+         id="feComposite1442"
+         in="fbSourceGraphic"
+         operator="over"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix1444" />
+      <feFlood
+         id="feFlood1446"
+         flood-opacity="0.0745098"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite1448"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur1450"
+         in="composite1"
+         stdDeviation="1"
+         result="blur" />
+      <feOffset
+         id="feOffset1452"
+         dx="1"
+         dy="1"
+         result="offset" />
+      <feComposite
+         in2="offset"
+         id="feComposite1454"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview423"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="2.1523917"
+     inkscape:cx="353.56017"
+     inkscape:cy="132.64314"
+     inkscape:window-width="2189"
+     inkscape:window-height="1427"
+     inkscape:window-x="67"
+     inkscape:window-y="40"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg421" />
+  <title
+     id="title355">Typing Practice</title>
+  <rect
+     x="0"
+     y="0"
+     width="600"
+     height="300"
+     fill="#f3efe4"
+     id="rect357" />
+  <g
+     id="g490"
+     transform="matrix(1.1016748,0,0,1.1016748,-30.399985,-24.409448)"
+     style="filter:url(#filter1430)">
+    <g
+       id="row-typing">
+      <rect
+         x="117"
+         y="93"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#e2ecdd"
+         stroke="#4c7a4a"
+         stroke-width="2"
+         id="rect361" />
+      <text
+         x="145"
+         y="123"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#4c7a4a"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text363">T</text>
+      <rect
+         x="179"
+         y="93"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#e2ecdd"
+         stroke="#4c7a4a"
+         stroke-width="2"
+         id="rect365" />
+      <text
+         x="207"
+         y="123"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#4c7a4a"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text367">y</text>
+      <rect
+         x="241"
+         y="93"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#e2ecdd"
+         stroke="#4c7a4a"
+         stroke-width="2"
+         id="rect369" />
+      <text
+         x="269"
+         y="123"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#4c7a4a"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text371">p</text>
+      <rect
+         x="303"
+         y="93"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#e2ecdd"
+         stroke="#4c7a4a"
+         stroke-width="2"
+         id="rect373" />
+      <text
+         x="331"
+         y="123"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#4c7a4a"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text375">i</text>
+      <rect
+         x="365"
+         y="93"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#c1863f"
+         stroke-width="2.5"
+         id="rect377" />
+      <text
+         x="393"
+         y="123"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text379">n</text>
+      <rect
+         x="375.60001"
+         y="137"
+         width="34.700001"
+         height="3"
+         rx="1.5"
+         fill="#c1863f"
+         id="rect381" />
+      <rect
+         x="427"
+         y="93"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect383" />
+      <text
+         x="455"
+         y="123"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text385">g</text>
+    </g>
+    <g
+       id="row-practice">
+      <rect
+         x="55"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect388" />
+      <text
+         x="83"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text390">P</text>
+      <rect
+         x="117"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect392" />
+      <text
+         x="145"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text394">r</text>
+      <rect
+         x="179"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect396" />
+      <text
+         x="207"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text398">a</text>
+      <rect
+         x="241"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect400" />
+      <text
+         x="269"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text402">c</text>
+      <rect
+         x="303"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect404" />
+      <text
+         x="331"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text406">t</text>
+      <rect
+         x="365"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect408" />
+      <text
+         x="393"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text410">i</text>
+      <rect
+         x="427"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect412" />
+      <text
+         x="455"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text414">c</text>
+      <rect
+         x="489"
+         y="167"
+         width="56"
+         height="56"
+         rx="10"
+         fill="#fbf8f1"
+         stroke="#d8cfbe"
+         stroke-width="2"
+         id="rect416" />
+      <text
+         x="517"
+         y="197"
+         font-family="'Courier Prime', monospace"
+         font-weight="700"
+         font-size="32px"
+         fill="#2a2621"
+         text-anchor="middle"
+         dominant-baseline="central"
+         id="text418">e</text>
+    </g>
+  </g>
+</svg>
