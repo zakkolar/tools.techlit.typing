@@ -3,7 +3,6 @@
 <template>
   <div class="home">
     <div class="sheet">
-      <p class="eyebrow">Techlit Tools</p>
       <h1>Typing Practice</h1>
       <p class="lede">
         In this typing game, students type a single word or phrase over and over to see how many
@@ -32,15 +31,6 @@
   border-radius: 4px;
   padding: 40px 44px;
   box-shadow: 0 1px 2px rgba(42, 38, 33, 0.06);
-}
-
-.eyebrow {
-  margin: 0 0 12px;
-  font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
 }
 
 h1 {
