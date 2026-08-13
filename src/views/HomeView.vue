@@ -74,7 +74,7 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
             <div class="faq-content">
               <p>Yes! This game runs entirely in your browser. No data is transmitted to me or any third parties.</p>
               <p>
-                When you customize the game, the URL parameters are all stored after the
+                When you customize the game, all information is stored in the URL after the
                 <code>#</code>. This information is kept in the browser. It is not sent back to the server.
               </p>
             </div>
