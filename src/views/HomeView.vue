@@ -20,20 +20,18 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
     <div class="sheet">
       <h1>Username Typing Practice</h1>
       <p class="lede">
-        In this typing game, students practice typing their username over and over to see how many bars they can fill before the time runs out.</p>
-        <p class="lede">The username and other game settings are specified in the link you share with your students.</p>
+        Students practice typing their username, filling up bars as they go.</p>
+        <p class="lede">Customize a link for each student and share it with them to play. No login needed.</p>
 
         <div class="actions">
           <div class="action-wrap">
             <a :href="sampleGame" class="action primary">Play sample game</a>
           </div>
           <div class="action-wrap">
-            <a :href="wordCustomizeUrl" target="_blank" class="action secondary">Single link builder</a>
-            <p class="action-caption">Link for one username</p>
+            <a :href="wordCustomizeUrl" target="_blank" class="action secondary">Build one link</a>
           </div>
           <div class="action-wrap">
-            <a :href="listCustomizeUrl" target="_blank" class="action secondary">Class list builder</a>
-            <p class="action-caption">List of links with a separate username for each</p>
+            <a :href="listCustomizeUrl" target="_blank" class="action secondary">Build class list</a>
           </div>
         </div>
       <section class="block">
@@ -166,6 +164,7 @@ code {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   gap: 16px;
   margin-top: 20px;
 }
@@ -189,15 +188,6 @@ code {
   white-space: nowrap;
 }
 
-.action-caption {
-  max-width: 150px;
-  margin: 8px 0 0;
-  font-family: var(--font-body);
-  font-size: 12.5px;
-  line-height: 1.4;
-  text-align: center;
-  color: var(--color-ink-soft);
-}
 
 .action.primary {
   background: var(--color-accent);
