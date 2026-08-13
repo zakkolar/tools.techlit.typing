@@ -1,15 +1,45 @@
 {
   "version": "1.0",
-  "preview_link": "https://typing.techlit.tools/play",
-  "title": "Typing Practice",
+  "preview_link": "https://typing.techlit.tools/links",
+  "title": "Typing Practice - Class List",
   "format": "queryString",
   "fields": [
     {
-      "label": "Word or phrase",
-      "key": "word",
-      "type": "text",
+      "type": "heading",
+      "title": "List Page Settings"
+    },
+    {
+      "label": "Words, phrases, or usernames (one per line)",
+      "key": "words",
+      "type": "list",
       "required": true,
-      "description": "The word or phrase for players to type"
+      "rows": 10,
+      "description": "One entry per student. Each student gets their own link to type their word."
+    },
+    {
+      "label": "Page title",
+      "key": "title",
+      "type": "text",
+      "default": "Class Links",
+      "description": "Heading shown at the top of the class links page."
+    },
+    {
+      "label": "Instructions",
+      "key": "instructions",
+      "type": "text",
+      "default": "Find your name below and tap it to start typing practice.",
+      "description": "Instructions shown below the heading on the class links page."
+    },
+    {
+      "label": "Show copy link buttons",
+      "key": "showCopyButtons",
+      "type": "boolean",
+      "default": false,
+      "description": "Show a copy button next to each student's link, for sharing links individually. Leave off if you're sharing this whole page with students directly."
+    },
+    {
+      "type": "heading",
+      "title": "Game Settings"
     },
     {
       "label": "Letters per bar",
@@ -19,10 +49,10 @@
       "description": "Number of correct letters/characters that fill one progress bar."
     },
     {
-      "label": "Treat fixed typos as accurate",
+      "label": "Restore accuracy",
       "key": "undoIncorrect",
       "type": "boolean",
-      "description": "When checked, typos that players fix will not count against their accuracy.",
+      "description": "When checked, fixing a typo restores accuracy.",
       "default": false
     },
     {
@@ -68,5 +98,4 @@
       "description": "Show a 'Play again' button after the game ends."
     }
   ]
-
 }

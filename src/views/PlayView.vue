@@ -463,7 +463,7 @@ onUnmounted(() => {
 
     <div class="messageScreenModal" v-if="paused">
       <div id="startScreen" class="messageScreen">
-        <h1>Typing Practice <span v-if="started">(paused)</span></h1>
+        <h1>Username Typing Practice <span v-if="started">(paused)</span></h1>
         <button @click="play">{{ started ? 'Resume' : 'Start' }}</button>
       </div>
     </div>
