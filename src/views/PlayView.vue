@@ -4,6 +4,7 @@ import {Chromebook} from '@/keyboards/Chromebook'
 import type {Key} from '@/keyboards/Key'
 import {Fillable} from '@/fillables/Fillable'
 import MovedNotification from '@/components/MovedNotification.vue'
+import {parseBooleanParam, parseHashParams} from '@/utils/hashParams'
 
 interface Settings {
   undoIncorrect: boolean
@@ -182,7 +183,7 @@ function readHashParams() {
     if (param) {
       switch (type) {
         case 'boolean':
-          param = !(param.toLowerCase() === 'false')
+          param = parseBooleanParam(param, defaultValue)
           break
         case 'integer':
           param = parseInt(param)
@@ -197,15 +198,7 @@ function readHashParams() {
     return param
   }
 
-  const hash = window.location.hash.substring(1)
-  const params = new Map<string, string>()
-
-  hash.split('&').forEach((item) => {
-    const parts = item.split('=')
-    if (parts.length === 2) {
-      params.set(parts[0]!, parts[1]!)
-    }
-  })
+  const params = parseHashParams()
 
   Object.assign(settings, defaultSettings)
 
