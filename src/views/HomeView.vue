@@ -78,7 +78,7 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
           </details>
 
           <details class="faq">
-            <summary>Is this open-source?</summary>
+            <summary>Is this open source?</summary>
             <div class="faq-content">
               <p>
                 Yes! The source code is

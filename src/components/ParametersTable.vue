@@ -47,7 +47,6 @@ onMounted(async () => {
         <tr>
           <th>Setting</th>
           <th>Key</th>
-          <th>Type</th>
           <th>Default</th>
           <th>Description</th>
         </tr>
@@ -60,7 +59,6 @@ onMounted(async () => {
           <tr v-else>
             <td>{{ field.label }}</td>
             <td><code>{{ field.key }}</code></td>
-            <td>{{ field.type }}</td>
             <td><code>{{ formatDefault(field.default) }}</code></td>
             <td class="description">{{ field.description }}</td>
           </tr>
