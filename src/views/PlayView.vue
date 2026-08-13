@@ -142,6 +142,29 @@ function setWord(word: string) {
   currentLetterIndex.value = 0
 }
 
+function findKeyForCharacter(char: string): Key | undefined {
+  const lower = char.toLowerCase()
+  for (const row of keyboard.keys) {
+    for (const key of row) {
+      if ((Array.isArray(key.label) && key.label.includes(char)) || key.label === lower) {
+          return key;
+      }
+    }
+  }
+  return undefined;
+}
+
+function shiftHandNeeded(char: string): 'left' | 'right' | undefined {
+  const isUpperLetter = char.toLowerCase() !== char && char.toUpperCase() === char
+  const targetKey = findKeyForCharacter(char)
+
+  if (targetKey && (isUpperLetter || (Array.isArray(targetKey.label) && targetKey.label[0] === char))) {
+    return targetKey.hand;
+  }
+
+  return undefined;
+}
+
 function isCurrentKey(key: Key) {
   if (settings.forceCorrectMistakes && currentIncorrectLetters.value > 0) {
     return key.label === 'backspace'
@@ -154,12 +177,8 @@ function isCurrentKey(key: Key) {
   }
 
   if (key.label === 'shift') {
-    if (
-        currentCharacter.toLowerCase() !== currentCharacter &&
-        currentCharacter.toUpperCase() === currentCharacter
-    ) {
-      return true
-    }
+    const hand = shiftHandNeeded(currentCharacter)
+    return !!hand && key.hand !== hand;
   }
 
   if (Array.isArray(key.label)) {
