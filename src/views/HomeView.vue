@@ -53,7 +53,7 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
               <p>
                 Every setting is passed into the URL. You can use this to build links yourself,
                 e.g. with a spreadsheet formula. Parameters go after a <code>#</code>, written as
-                <code>key=value</code>. This sets the username to type:
+                <code>key=value</code>. This sets the username:
               </p>
               <UrlExample :url="singleParamExample" />
               <p>Separate multiple parameters with <code>&amp;</code>:</p>
