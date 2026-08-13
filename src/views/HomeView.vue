@@ -39,10 +39,10 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
           <details class="faq">
             <summary>Is this fair for students with longer usernames?</summary>
             <div class="faq-content">
-              <p>The bars on the screen fill up as the student types correct letters, with each bar completing after a configurable number of letters (10 by default). This means that the length of the username does not impact the number of bars filled.</p>
+              <p>Each bar fills after a fixed number of letters (10 by default), not a full username. The length of the username does not impact the number of bars filled.</p>
               <p><b>Example:</b>
               <br>
-              <code>EmmaWalker</code> (10 letters) would need to type their username twice to fill up the same number of bars as <code>ChristopherRodriguez</code> (20 letters).
+              <code>EmmaWalker</code> (10 letters) fills one bar and <code>ChristopherRodriguez</code> (20 letters) fills two.
               </p>
 
             </div>
@@ -51,17 +51,16 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
             <summary>How do I build the link manually?</summary>
             <div class="faq-content">
               <p>
-                Every setting is passed into the URL. This is handy for building links yourself,
+                Every setting is passed into the URL. You can use this to build links yourself,
                 e.g. with a spreadsheet formula. Parameters go after a <code>#</code>, written as
-                <code>key=value</code>. This sets the word to type:
+                <code>key=value</code>. This sets the username to type:
               </p>
               <UrlExample :url="singleParamExample" />
               <p>Separate multiple parameters with <code>&amp;</code>:</p>
               <UrlExample :url="multiParamExample" />
               <p>
                 The <code>word</code> parameter must be specified. Any other parameter you leave
-                out will use its default value. For a class list, repeat this pattern once per
-                student.
+                out will use its default value.
               </p>
               <p>Available settings for <code>/play</code>:</p>
               <ParametersTable manifest-url="/customize/word.json" />
