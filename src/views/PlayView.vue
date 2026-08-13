@@ -732,7 +732,7 @@ onUnmounted(() => {
 .messageScreen {
   text-align: center;
   padding: 32px;
-  min-height: 21vh;
+  min-height: 17vh;
   min-width: 320px;
   max-width: 90vw;
   width: 520px;
