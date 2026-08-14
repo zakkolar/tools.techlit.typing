@@ -5,7 +5,7 @@ import ExternalLink from "@/components/ExternalLink.vue";
 
 const origin = window.location.origin
 
-const sampleGame = computed(()=> `${origin}/play#word=ChristopherRodriguez&capacity=20&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
+const sampleGame = computed(()=> `${origin}/play#word=ChristopherRodriguez&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
 
 const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristopherRodriguez%0AJamalOkafor%0ASofiaMartinez%0AMiaNguyen&labels=Emma%20W%0AChris%20R%0AJamal%20O%0ASofia%20M%0AMia%20N&title=Username%20Practice&instructions=Click%20on%20your%20name%20below%20to%20start%20practicing.&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=false&showPlayAgain=true`)
 
@@ -66,7 +66,7 @@ function openSetupGuide() {
           <details class="faq">
             <summary>What about students with long usernames?</summary>
             <div class="faq-content">
-              <p>Each bar fills after a fixed number of letters (20 by default), not a full username. The length of the username does not impact the number of bars filled.</p>
+              <p>Each bar fills after a fixed number of letters (10 by default), not a full username. The length of the username does not impact the number of bars filled.</p>
               <div class="callout">
                 <p class="callout-label">Example</p>
                 <p class="callout-body">
