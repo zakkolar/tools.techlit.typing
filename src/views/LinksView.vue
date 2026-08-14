@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { parseBooleanParam, parseHashParams } from '@/utils/hashParams'
+import { parseHashParams } from '@/utils/hashParams'
 
 interface StudentLink {
   username: string
@@ -12,13 +12,10 @@ const DEFAULT_TITLE = 'Class Links'
 const DEFAULT_INSTRUCTIONS = 'Click on your username below to load your practice game.'
 
 const students = ref<StudentLink[]>([])
-const showCopyButtons = ref(true)
 const title = ref(DEFAULT_TITLE)
 const instructions = ref(DEFAULT_INSTRUCTIONS)
-const copiedUsername = ref<string | null>(null)
-let copiedTimeout: ReturnType<typeof setTimeout> | null = null
 
-const RESERVED_KEYS = ['words', 'labels', 'showCopyButtons', 'title', 'instructions']
+const RESERVED_KEYS = ['words', 'labels', 'title', 'instructions']
 
 function readHashParams() {
   const params = parseHashParams()
@@ -37,8 +34,6 @@ function readHashParams() {
           .split('\n')
           .map((l) => l.trim())
       : []
-
-  showCopyButtons.value = parseBooleanParam(params.get('showCopyButtons'), false)
 
   const titleValue = params.get('title')
   title.value = titleValue ? decodeURIComponent(titleValue) : DEFAULT_TITLE
@@ -59,17 +54,6 @@ function readHashParams() {
   }))
 }
 
-async function copyLink(student: StudentLink) {
-  await navigator.clipboard.writeText(student.href)
-  copiedUsername.value = student.username
-  if (copiedTimeout) {
-    clearTimeout(copiedTimeout)
-  }
-  copiedTimeout = setTimeout(() => {
-    copiedUsername.value = null
-  }, 1500)
-}
-
 onMounted(() => {
   window.addEventListener('hashchange', readHashParams)
   readHashParams()
@@ -77,9 +61,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('hashchange', readHashParams)
-  if (copiedTimeout) {
-    clearTimeout(copiedTimeout)
-  }
 })
 </script>
 
@@ -92,14 +73,6 @@ onUnmounted(() => {
         <ul class="student-list">
           <li v-for="student in students" :key="student.username">
             <a class="student-link" :href="student.href">{{ student.label }}</a>
-            <button
-                v-if="showCopyButtons"
-                type="button"
-                class="copy-button"
-                @click="copyLink(student)"
-            >
-              {{ copiedUsername === student.username ? 'Copied!' : 'Copy link' }}
-            </button>
           </li>
         </ul>
       </template>
@@ -178,22 +151,5 @@ h1 {
 
 .student-link:hover {
   background: var(--color-accent-deep);
-}
-
-.copy-button {
-  flex-shrink: 0;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 600;
-  background: transparent;
-  color: var(--color-accent-deep);
-  border: 1px solid var(--color-accent);
-  border-radius: 6px;
-  padding: 10px 16px;
-  cursor: pointer;
-}
-
-.copy-button:hover {
-  background: var(--color-accent-tint);
 }
 </style>

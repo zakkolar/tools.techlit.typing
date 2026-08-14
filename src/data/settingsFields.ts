@@ -84,14 +84,6 @@ export const listPageFields: ManifestField[] = [
     default: 'Click on your username below to start practicing.',
     description: 'Instructions shown below the heading on the class links page.',
   },
-  {
-    label: 'Show copy link buttons',
-    key: 'showCopyButtons',
-    type: 'boolean',
-    default: false,
-    description:
-      "Show a copy button next to each student's link, for sharing links individually. Leave off if you're sharing this whole page with students directly.",
-  },
 ]
 
 export const wordSettingsFields: ManifestField[] = [wordField, ...gameSettingsFields]

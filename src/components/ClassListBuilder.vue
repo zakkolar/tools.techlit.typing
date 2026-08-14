@@ -6,11 +6,9 @@ import RosterInput, { type RosterStudent } from '@/components/RosterInput.vue'
 
 const titleField = listPageFields.find((f) => f.key === 'title')!
 const instructionsField = listPageFields.find((f) => f.key === 'instructions')!
-const showCopyButtonsField = listPageFields.find((f) => f.key === 'showCopyButtons')!
 
 const title = ref(String(titleField.default))
 const instructions = ref(String(instructionsField.default))
-const showCopyButtons = ref(Boolean(showCopyButtonsField.default))
 
 const settings = reactive<Record<string, unknown>>(
   Object.fromEntries(gameSettingsFields.map((field) => [field.key, field.default])),
@@ -32,7 +30,6 @@ const previewUrl = computed(() => {
   }
   params.push(`title=${encodeURIComponent(title.value)}`)
   params.push(`instructions=${encodeURIComponent(instructions.value)}`)
-  params.push(`showCopyButtons=${showCopyButtons.value}`)
   for (const field of gameSettingsFields) {
     params.push(`${field.key}=${encodeURIComponent(String(settings[field.key!]))}`)
   }
@@ -63,7 +60,7 @@ async function copyLink() {
   <div class="class-list-builder">
     <p class="form-intro">Add your class list and game settings, then copy the link at the bottom to share.</p>
 
-     <h2 class="settings-group-heading">Link page settings</h2>
+     <h2 class="settings-group-heading">Class page settings</h2>
 
     <div class="field-group">
       <div class="form-row-name">Class list</div>
@@ -92,14 +89,6 @@ async function copyLink() {
         v-model="instructions"
         rows="3"
       ></textarea>
-    </div>
-
-    <div class="form-row">
-      <label class="form-row-label" for="list-show-copy">
-        <span class="form-row-name">{{ showCopyButtonsField.label }}</span>
-        <span class="form-row-description">{{ showCopyButtonsField.description }}</span>
-      </label>
-      <input id="list-show-copy" type="checkbox" class="checkbox-field" v-model="showCopyButtons" />
     </div>
 
     <h2 class="settings-group-heading">Game settings</h2>
