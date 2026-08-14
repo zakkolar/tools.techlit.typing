@@ -50,7 +50,7 @@ export const gameSettingsFields: ManifestField[] = [
     key: 'sound',
     type: 'boolean',
     default: true,
-    description: 'Enable sound effects (click for each letter and ding for each filled item)',
+    description: 'Enable click sound when a letter is pressed.',
   },
   {
     label: 'Time limit (seconds)',
