@@ -7,7 +7,6 @@ import MovedNotification from '@/components/MovedNotification.vue'
 import {parseBooleanParam, parseHashParams} from '@/utils/hashParams'
 
 interface Settings {
-  undoIncorrect: boolean
   showKeyboard: boolean
   sound: boolean
   forceCorrectMistakes: boolean
@@ -25,7 +24,6 @@ const charactersToType = ref<string[]>([])
 const currentLetterIndex = ref(0)
 const paused = ref(true)
 const correctLetters = ref(0)
-const incorrectLetters = ref(0)
 const currentIncorrectLetters = ref(0)
 const currentTime = ref(0)
 const started = ref(false)
@@ -35,7 +33,6 @@ const showKeyboardHint = ref(false)
 let keyboardHintTimeout: ReturnType<typeof setTimeout> | null = null
 
 const settings = reactive<Settings>({
-  undoIncorrect: false,
   showKeyboard: true,
   sound: true,
   forceCorrectMistakes: true,
@@ -100,7 +97,6 @@ function typeLetter(letter: string) {
         addFillable()
       }
     } else {
-      incorrectLetters.value++
       currentIncorrectLetters.value++
     }
     currentLetterIndex.value++
@@ -123,9 +119,6 @@ function backspace() {
     if (removedCharacter === charactersToType.value[currentLetterIndex.value]) {
       correctLetters.value--
     } else {
-      if (settings.undoIncorrect) {
-        incorrectLetters.value--
-      }
       currentIncorrectLetters.value--
     }
   }
@@ -221,7 +214,6 @@ function readHashParams() {
   Object.assign(settings, defaultSettings)
 
   setWord(getParam(params, 'word', 'string', ''))
-  settings.undoIncorrect = getParam(params, 'undoIncorrect', 'boolean', settings.undoIncorrect)
   settings.showKeyboard = getParam(params, 'showKeyboard', 'boolean', settings.showKeyboard)
   settings.capacity = getParam(params, 'capacity', 'integer', settings.capacity)
   settings.forceCorrectMistakes = getParam(
@@ -244,7 +236,6 @@ function reset() {
   started.value = false
   typedCharacters.value = []
   correctLetters.value = 0
-  incorrectLetters.value = 0
   currentIncorrectLetters.value = 0
   fillables.value.length = 0
   addFillable()
@@ -326,10 +317,6 @@ function onFinish() {
   window.parent.postMessage(
       JSON.stringify({
         type: 'typingComplete',
-        correctLetters: correctLetters.value,
-        incorrectLetters: incorrectLetters.value,
-        accuracy: accuracy.value,
-        speed: speed.value,
         filled: filled.value,
       }),
       '*',
@@ -354,16 +341,6 @@ const minutes = computed(() =>
 )
 
 const seconds = computed(() => (currentTime.value % 60).toString().padStart(2, '0'))
-
-const accuracy = computed(() =>
-    Math.round((1 - incorrectLetters.value / (correctLetters.value + incorrectLetters.value)) * 100),
-)
-
-const speed = computed(() =>
-    Math.round(
-        (correctLetters.value + incorrectLetters.value) / 5.1 / (settings.startingTime / 60),
-    ),
-)
 
 const filled = computed(() => Math.floor(correctLetters.value / settings.capacity))
 
@@ -476,26 +453,6 @@ onUnmounted(() => {
           <div v-html="currentFillable.css()"></div>
           <div v-html="fillable.render()" v-for="(fillable, index) of fillables" :key="index"></div>
         </div>
-        <table class="results">
-          <tbody>
-          <tr>
-            <th>Correct letters:</th>
-            <td>{{ correctLetters }}</td>
-          </tr>
-          <tr>
-            <th>Incorrect letters:</th>
-            <td>{{ incorrectLetters }}</td>
-          </tr>
-          <tr>
-            <th>Accuracy:</th>
-            <td>{{ accuracy }}%</td>
-          </tr>
-          <tr>
-            <th>Speed:</th>
-            <td>{{ speed }} WPM</td>
-          </tr>
-          </tbody>
-        </table>
         <button @click="playAgain" v-if="settings.showPlayAgain">Play again</button>
       </div>
     </div>
@@ -667,27 +624,6 @@ onUnmounted(() => {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.results {
-  margin: 24px auto 0;
-  border-collapse: collapse;
-}
-
-.results th,
-.results td {
-  padding: 6px 14px;
-  border-bottom: 1px solid var(--color-rule);
-}
-
-.results th {
-  text-align: right;
-  color: var(--color-text-muted);
-  font-weight: 500;
-}
-
-.results td {
-  text-align: left;
 }
 
 .keyboard-hint {

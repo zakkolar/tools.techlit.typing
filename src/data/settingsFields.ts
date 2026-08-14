@@ -25,13 +25,6 @@ export const gameSettingsFields: ManifestField[] = [
     description: 'Number of correct letters/characters that fill one progress bar.',
   },
   {
-    label: 'Restore accuracy',
-    key: 'undoIncorrect',
-    type: 'boolean',
-    default: false,
-    description: 'When checked, fixing a typo restores accuracy.',
-  },
-  {
     label: 'Show virtual keyboard',
     key: 'showKeyboard',
     type: 'boolean',

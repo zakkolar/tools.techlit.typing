@@ -4,7 +4,7 @@ import LinkBuilderTabs from '@/components/LinkBuilderTabs.vue'
 
 const origin = window.location.origin
 
-const sampleGame = computed(()=> `${origin}/play#word=JohnnyAppleseed&capacity=20&undoIncorrect=true&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
+const sampleGame = computed(()=> `${origin}/play#word=JohnnyAppleseed&capacity=20&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
 
 const setupDetails = ref<HTMLDetailsElement | null>(null)
 
