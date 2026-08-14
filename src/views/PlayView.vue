@@ -462,8 +462,6 @@ onUnmounted(() => {
 <style>
 #game {
   padding: 24px 16px 40px;
-  max-width: 900px;
-  margin: 0 auto;
 }
 
 #timer {
@@ -484,7 +482,7 @@ onUnmounted(() => {
   overflow: auto;
   position: relative;
   width: fit-content;
-  max-width: 100%;
+  max-width: min(900px, 100%);
   margin: 24px auto 0;
   -webkit-user-select: none;
   user-select: none;
@@ -617,10 +615,6 @@ onUnmounted(() => {
 }
 
 .fillables {
-  position: relative;
-  left: 50%;
-  width: 100vw;
-  margin-left: -50vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
