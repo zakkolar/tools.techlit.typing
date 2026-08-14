@@ -416,6 +416,11 @@ onUnmounted(() => {
 
     <div id="timer" v-if="settings.useTimer && settings.showTimer">{{ minutes }}:{{ seconds }}</div>
     <div id="game">
+      <div v-if="currentFillable" class="fillables">
+        <div v-html="currentFillable.css()"></div>
+        <div v-html="fillable.render()" v-for="(fillable, index) of fillablesReversed" :key="index"></div>
+      </div>
+
       <div class="letters">
         <ul>
           <li
@@ -434,11 +439,6 @@ onUnmounted(() => {
             {{ char }}
           </li>
         </ul>
-      </div>
-
-      <div v-if="currentFillable" class="fillables">
-        <div v-html="currentFillable.css()"></div>
-        <div v-html="fillable.render()" v-for="(fillable, index) of fillablesReversed" :key="index"></div>
       </div>
 
       <div class="keyboard" v-if="settings.showKeyboard">
