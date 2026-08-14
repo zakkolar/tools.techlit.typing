@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import LinkBuilderTabs from '@/components/LinkBuilderTabs.vue'
+import ExternalLink from "@/components/ExternalLink.vue";
 
 const origin = window.location.origin
 
-const sampleGame = computed(()=> `${origin}/play#word=JohnnyAppleseed&capacity=20&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
+const sampleGame = computed(()=> `${origin}/play#word=ChristopherRodriguez&capacity=20&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
+
+const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristopherRodriguez%0AJamalOkafor%0ASofiaMartinez%0AMiaNguyen&labels=Emma%20W%0AChris%20R%0AJamal%20O%0ASofia%20M%0AMia%20N&title=Username%20Practice&instructions=Click%20on%20your%20name%20below%20to%20start%20practicing.&showCopyButtons=false&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=false&showPlayAgain=true`)
 
 const setupDetails = ref<HTMLDetailsElement | null>(null)
 
@@ -37,17 +40,19 @@ function openSetupGuide() {
           <details class="faq" ref="setupDetails">
             <summary>How do I set up the game?</summary>
             <div class="faq-content">
-              <p>The username and other game settings are set in the link that you share with your students. This allows you to customize the game experience in a privacy-friendly way without having to manage student accounts.</p>
+              <p>The username and other game settings are set in the URL that you share with your students. Each student gets their own game link with their username. This allows you to customize the game experience in a privacy-friendly way without having to manage student accounts.</p>
               <p>There are three ways to do this:</p>
 
               <ol class="setup-list">
                 <li>
-                  <b>Single link</b>
-                  <span>Use the builder below to create one link for a specific student.</span>
+                  <b>Game link</b>
+                  <span>Enter the username and game settings for one student to build a game link. Copy the game link and share it directly with the student. <br><ExternalLink :href="sampleGame">Example game link</ExternalLink></span>
                 </li>
                 <li>
                   <b>Class link</b>
-                  <span>Use the builder below to create a list of links for your whole class on a single page. You can share this page with students directly so they can find their own names, or visit the page and copy each student's link to share with them separately.</span>
+                  <span>Enter a list of usernames and game settings to build a page with the game link for every student. Copy the class link and share it with your students.
+                  <br><ExternalLink :href="sampleClass">Example class link</ExternalLink>
+                  </span>
                 </li>
                 <li>
                   <b>Build it manually</b>
@@ -86,7 +91,7 @@ function openSetupGuide() {
             <div class="faq-content">
               <p>
                 Yes! The source code is
-                <a href="https://github.com/zakkolar/tools.techlit.typing" target="_blank" rel="noopener">here</a>.
+                <ExternalLink href="https://github.com/zakkolar/tools.techlit.typing">here</ExternalLink>.
               </p>
             </div>
           </details>
@@ -96,7 +101,7 @@ function openSetupGuide() {
             <div class="faq-content">
               <p>
                 My name is Zak Kolar and I'm an educator. See more information
-                <a href="https://techlit.tools/about/" target="_blank" rel="noopener">here</a>.
+                <ExternalLink href="https://techlit.tools/about/">here</ExternalLink>.
               </p>
             </div>
           </details>
@@ -104,7 +109,7 @@ function openSetupGuide() {
           <details class="faq">
             <summary>Are there activities for other skills?</summary>
             <div class="faq-content">
-              <p>Yes! Check out the collection <a href="https://techlit.tools/" target="_blank" rel="noopener">here</a>.</p>
+              <p>Yes! Check out the collection <ExternalLink href="https://techlit.tools/">here</ExternalLink>.</p>
             </div>
           </details>
         </div>

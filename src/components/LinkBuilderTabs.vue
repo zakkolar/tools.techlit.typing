@@ -9,7 +9,7 @@ import { wordSettingsFields } from '@/data/settingsFields'
 type TabId = 'single' | 'class' | 'manual'
 
 const tabs: { id: TabId; label: string }[] = [
-  { id: 'single', label: 'Single link' },
+  { id: 'single', label: 'Game link' },
   { id: 'class', label: 'Class list' },
   { id: 'manual', label: 'Build it manually' },
 ]
