@@ -520,7 +520,7 @@ onUnmounted(() => {
 }
 
 .keyboard {
-  background: var(--color-paper-raised);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-rule);
   border-radius: 12px;
   padding: 10px;
@@ -540,7 +540,7 @@ onUnmounted(() => {
 }
 
 .key {
-  background: var(--color-paper);
+  background: var(--color-surface);
   border: 1px solid var(--color-rule);
   border-radius: 8px;
   box-shadow: 0 2px 0 var(--color-rule);
@@ -555,13 +555,13 @@ onUnmounted(() => {
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
 }
 
 .key.current {
   background: var(--color-warm);
   border-color: var(--color-warm-deep);
-  color: var(--color-paper-raised);
+  color: var(--color-surface-raised);
   box-shadow: 0 2px 0 var(--color-warm-deep);
 }
 
@@ -589,10 +589,10 @@ onUnmounted(() => {
   font-size: 34px;
   width: 48px;
   height: 60px;
-  background: var(--color-paper-raised);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-rule);
   border-radius: 8px;
-  color: var(--color-ink);
+  color: var(--color-text);
   text-align: center;
   display: flex;
   align-items: center;
@@ -652,7 +652,7 @@ onUnmounted(() => {
   z-index: 1;
   border-radius: 50%;
   background: var(--color-incorrect);
-  color: var(--color-paper-raised);
+  color: var(--color-surface-raised);
   font-family: var(--font-body);
   font-size: 12px;
   line-height: 15px;
@@ -682,7 +682,7 @@ onUnmounted(() => {
 
 .results th {
   text-align: right;
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
   font-weight: 500;
 }
 
@@ -700,7 +700,7 @@ onUnmounted(() => {
   padding: 16px;
   background: rgba(42, 38, 33, 0.72);
   border-radius: 12px;
-  color: var(--color-paper-raised);
+  color: var(--color-surface-raised);
   font-family: var(--font-body);
   font-size: 18px;
   font-weight: 600;
@@ -737,7 +737,7 @@ onUnmounted(() => {
   max-width: 90vw;
   width: 520px;
   overflow: auto;
-  background: var(--color-paper-raised);
+  background: var(--color-surface-raised);
   position: relative;
   margin-top: 10vh;
   border: 1px solid var(--color-rule);
@@ -754,7 +754,7 @@ onUnmounted(() => {
 
 .messageScreen p {
   text-align: left;
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
 }
 
 #timeUp .fillables {
@@ -772,7 +772,7 @@ onUnmounted(() => {
 .messageScreen button {
   font-size: 21px;
   background: var(--color-accent);
-  color: var(--color-paper-raised);
+  color: var(--color-surface-raised);
   border-style: none;
   border-radius: 6px;
   margin-top: 20px;

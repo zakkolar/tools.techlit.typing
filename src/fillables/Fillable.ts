@@ -37,7 +37,7 @@ export class Fillable {
         position: relative;
         border: 1px solid var(--color-rule);
         border-radius: 6px;
-        background: var(--color-paper-raised);
+        background: var(--color-surface-raised);
         margin: 4px;
         float: left;
         overflow: hidden;

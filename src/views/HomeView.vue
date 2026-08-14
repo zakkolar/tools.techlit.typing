@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import ParametersTable from '@/components/ParametersTable.vue'
-import UrlExample from '@/components/UrlExample.vue'
+import { computed, ref } from 'vue'
+import LinkBuilderTabs from '@/components/LinkBuilderTabs.vue'
 
 const origin = window.location.origin
-const customizeBase = 'https://customize.techlit.tools/#url='
-
-const wordCustomizeUrl = computed(() => `${customizeBase}${origin}/customize/word.json`)
-const listCustomizeUrl = computed(() => `${customizeBase}${origin}/customize/list.json`)
 
 const sampleGame = computed(()=> `${origin}/play#word=JohnnyAppleseed&capacity=20&undoIncorrect=true&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
 
-const singleParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed`)
-const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&sound=true`)
+const setupDetails = ref<HTMLDetailsElement | null>(null)
+
+function openSetupGuide() {
+  const el = setupDetails.value
+  if (!el) return
+  el.open = true
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 </script>
 
 <template>
@@ -20,50 +21,53 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
     <div class="sheet">
       <h1>Username Typing Practice</h1>
       <p class="lede">
-        Students practice typing their username, filling up bars as they go.</p>
+        In this simple game, students type their usernames over and over and fill as many bars as they can.</p>
         <p class="lede">Customize a link for each student and share it with them to play. No login needed.</p>
 
         <div class="actions">
           <div class="action-wrap">
-            <a :href="sampleGame" class="action primary">Play sample game</a>
+            <a :href="sampleGame" class="btn btn-primary">Play sample game</a>
           </div>
           <div class="action-wrap">
-            <a :href="wordCustomizeUrl" target="_blank" class="action secondary">Build one link</a>
-          </div>
-          <div class="action-wrap">
-            <a :href="listCustomizeUrl" target="_blank" class="action secondary">Build class list</a>
+            <button type="button" class="btn btn-secondary" @click="openSetupGuide">Build a link</button>
           </div>
         </div>
       <section class="block">
         <div class="faq-list">
-          <details class="faq">
-            <summary>Is this fair for students with longer usernames?</summary>
+          <details class="faq" ref="setupDetails">
+            <summary>How do I set up the game?</summary>
             <div class="faq-content">
-              <p>Each bar fills after a fixed number of letters (10 by default), not a full username. The length of the username does not impact the number of bars filled.</p>
-              <p><b>Example:</b>
-              <br>
-              <code>EmmaWalker</code> (10 letters) fills one bar and <code>ChristopherRodriguez</code> (20 letters) fills two.
-              </p>
+              <p>The username and other game settings are set in the link that you share with your students. This allows you to customize the game experience in a privacy-friendly way without having to manage student accounts.</p>
+              <p>There are three ways to do this:</p>
 
+              <ol class="setup-list">
+                <li>
+                  <b>Single link</b>
+                  <span>Use the builder below to create one link for a specific student.</span>
+                </li>
+                <li>
+                  <b>Class link</b>
+                  <span>Use the builder below to create a list of links for your whole class on a single page. You can share this page with students directly so they can find their own names, or visit the page and copy each student's link to share with them separately.</span>
+                </li>
+                <li>
+                  <b>Build it manually</b>
+                  <span>For more advanced use-cases, such as generating custom links via a spreadsheet formula, follow the documentation below to build the game links yourself.</span>
+                </li>
+              </ol>
+              <p>Use the tabs below to start building your links.</p>
+              <LinkBuilderTabs />
             </div>
           </details>
           <details class="faq">
-            <summary>How do I build the link manually?</summary>
+            <summary>What about students with long usernames?</summary>
             <div class="faq-content">
-              <p>
-                Every setting is passed into the URL. You can use this to build links yourself,
-                e.g. with a spreadsheet formula. Parameters go after a <code>#</code>, written as
-                <code>key=value</code>. This sets the username:
-              </p>
-              <UrlExample :url="singleParamExample" />
-              <p>Separate multiple parameters with <code>&amp;</code>:</p>
-              <UrlExample :url="multiParamExample" />
-              <p>
-                The <code>word</code> parameter must be specified. Any other parameter you leave
-                out will use its default value.
-              </p>
-              <p>Available settings for <code>/play</code>:</p>
-              <ParametersTable manifest-url="/customize/word.json" />
+              <p>Each bar fills after a fixed number of letters (20 by default), not a full username. The length of the username does not impact the number of bars filled.</p>
+              <div class="callout">
+                <p class="callout-label">Example</p>
+                <p class="callout-body">
+                  <code>EmmaWalker</code> (10 letters) fills one bar and <code>ChristopherRodriguez</code> (20 letters) fills two.
+                </p>
+              </div>
             </div>
           </details>
           <details class="faq">
@@ -122,7 +126,7 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
 .sheet {
   width: 100%;
   max-width: 720px;
-  background: var(--color-paper-raised);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-rule);
   border-top: 4px solid var(--color-accent);
   border-radius: 4px;
@@ -135,13 +139,8 @@ h1 {
   letter-spacing: 0.02em;
 }
 
-h2 {
-  font-size: 20px;
-  letter-spacing: 0.01em;
-}
-
 .lede {
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
   font-size: 16px;
   max-width: 60ch;
 }
@@ -153,10 +152,32 @@ h2 {
 code {
   font-family: var(--font-display);
   font-size: 0.9em;
-  background: var(--color-paper);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-rule);
   border-radius: 3px;
   padding: 1px 5px;
+}
+
+.callout {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+
+.callout-label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-deep);
+  margin: 0 0 6px;
+}
+
+.callout-body {
+  margin: 0;
 }
 
 .actions {
@@ -175,39 +196,6 @@ code {
   flex: 0 1 auto;
 }
 
-.action {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 14px;
-  text-align: center;
-  border-radius: 6px;
-  padding: 11px 14px;
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-
-.action.primary {
-  background: var(--color-accent);
-  color: var(--color-paper-raised);
-}
-
-.action.primary:hover {
-  background: var(--color-accent-deep);
-}
-
-.action.secondary {
-  background: var(--color-paper);
-  border: 1px solid var(--color-rule);
-  color: var(--color-accent-deep);
-}
-
-.action.secondary:hover {
-  background: var(--color-accent-tint);
-  border-color: var(--color-accent);
-}
-
 .faq-list {
   margin-top: 28px;
 }
@@ -224,8 +212,9 @@ code {
 .faq summary {
   cursor: pointer;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 17px;
-  color: var(--color-ink);
+  color: var(--color-text-secondary);
 }
 
 
@@ -233,6 +222,7 @@ code {
   margin-top: 12px;
   padding-left: 1em;
   line-height: 1.65;
+  color: var(--color-text-muted);
 }
 
 .faq-content > * + * {
@@ -241,5 +231,67 @@ code {
 
 .faq-content p {
   max-width: 62ch;
+}
+
+.setup-list {
+  list-style: none;
+  counter-reset: setup-step;
+  margin: 0 0 1em;
+  padding: 0;
+}
+
+.setup-list li {
+  counter-increment: setup-step;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.setup-list li > b {
+  flex: 0 0 150px;
+}
+
+.setup-list li > span {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .setup-list li {
+    flex-wrap: wrap;
+  }
+
+  .setup-list li > b {
+    flex-basis: auto;
+  }
+}
+
+.setup-list li:last-child {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.setup-list li::before {
+  content: counter(setup-step);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 0.1em;
+  border-radius: 50%;
+  background: var(--color-accent-tint);
+  color: var(--color-accent-deep);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.setup-list b {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-secondary);
 }
 </style>

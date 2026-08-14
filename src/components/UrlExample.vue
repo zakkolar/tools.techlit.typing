@@ -35,22 +35,22 @@ const parsed = computed(() => {
 .url-example {
   font-family: var(--font-display);
   font-size: 14px;
-  background: var(--color-paper);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-rule);
   border-radius: 4px;
-  padding: 14px 16px;
+  padding: 6px 8px;
   overflow-x: auto;
   white-space: pre;
 }
 
 .base {
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
   opacity: 0.7;
 }
 
 .hash,
 .amp {
-  color: var(--color-ink);
+  color: var(--color-text);
 }
 
 .key {

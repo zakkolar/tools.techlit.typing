@@ -4,11 +4,12 @@ import { parseBooleanParam, parseHashParams } from '@/utils/hashParams'
 
 interface StudentLink {
   username: string
+  label: string
   href: string
 }
 
 const DEFAULT_TITLE = 'Class Links'
-const DEFAULT_INSTRUCTIONS = 'Find your name below and tap it to start typing practice.'
+const DEFAULT_INSTRUCTIONS = 'Click on your username below to load your practice game.'
 
 const students = ref<StudentLink[]>([])
 const showCopyButtons = ref(true)
@@ -17,7 +18,7 @@ const instructions = ref(DEFAULT_INSTRUCTIONS)
 const copiedUsername = ref<string | null>(null)
 let copiedTimeout: ReturnType<typeof setTimeout> | null = null
 
-const RESERVED_KEYS = ['words', 'showCopyButtons', 'title', 'instructions']
+const RESERVED_KEYS = ['words', 'labels', 'showCopyButtons', 'title', 'instructions']
 
 function readHashParams() {
   const params = parseHashParams()
@@ -25,9 +26,16 @@ function readHashParams() {
   const wordsValue = params.get('words')
   const usernames = wordsValue
       ? decodeURIComponent(wordsValue)
-          .split(',')
+          .split('\n')
           .map((w) => w.trim())
           .filter((w) => w.length > 0)
+      : []
+
+  const labelsValue = params.get('labels')
+  const labels = labelsValue
+      ? decodeURIComponent(labelsValue)
+          .split('\n')
+          .map((l) => l.trim())
       : []
 
   showCopyButtons.value = parseBooleanParam(params.get('showCopyButtons'), false)
@@ -44,8 +52,9 @@ function readHashParams() {
       .join('&')
 
   const origin = window.location.origin
-  students.value = usernames.map((username) => ({
+  students.value = usernames.map((username, index) => ({
     username,
+    label: labels[index] || username,
     href: `${origin}/play#word=${encodeURIComponent(username)}${passthrough ? '&' + passthrough : ''}`,
   }))
 }
@@ -82,7 +91,7 @@ onUnmounted(() => {
         <p class="lede">{{ instructions }}</p>
         <ul class="student-list">
           <li v-for="student in students" :key="student.username">
-            <a class="student-link" :href="student.href">{{ student.username }}</a>
+            <a class="student-link" :href="student.href">{{ student.label }}</a>
             <button
                 v-if="showCopyButtons"
                 type="button"
@@ -118,7 +127,7 @@ onUnmounted(() => {
 .sheet {
   width: 100%;
   max-width: 560px;
-  background: var(--color-paper-raised);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-rule);
   border-top: 4px solid var(--color-accent);
   border-radius: 4px;
@@ -132,7 +141,7 @@ h1 {
 }
 
 .lede {
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
   font-size: 16px;
   max-width: 60ch;
 }
@@ -141,43 +150,46 @@ h1 {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .student-list li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--color-rule);
-}
-
-.student-list li:last-child {
-  border-bottom: none;
+  gap: 12px;
 }
 
 .student-link {
-  font-family: var(--font-display);
-  font-size: 18px;
-  color: var(--color-ink);
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-surface-raised);
+  background: var(--color-accent);
+  border-radius: 6px;
+  padding: 10px 16px;
   text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: background 0.12s ease;
 }
 
 .student-link:hover {
-  color: var(--color-accent-deep);
-  text-decoration: underline;
+  background: var(--color-accent-deep);
 }
 
 .copy-button {
   flex-shrink: 0;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   background: transparent;
   color: var(--color-accent-deep);
   border: 1px solid var(--color-accent);
-  border-radius: 4px;
-  padding: 6px 12px;
+  border-radius: 6px;
+  padding: 10px 16px;
   cursor: pointer;
 }
 

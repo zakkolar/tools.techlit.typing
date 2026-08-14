@@ -32,7 +32,7 @@ function acknowledge() {
 .redirect-banner {
   padding: 10px 40px 10px 16px;
   background: var(--color-warm-tint);
-  color: var(--color-ink);
+  color: var(--color-text);
   border-bottom: 1px solid var(--color-rule);
   font-family: var(--font-body);
   font-size: 14px;
@@ -50,7 +50,7 @@ function acknowledge() {
   top: 8px;
   border: none;
   background: transparent;
-  color: var(--color-ink-soft);
+  color: var(--color-text-muted);
   width: 24px;
   height: 24px;
   border-radius: 4px;
@@ -61,6 +61,6 @@ function acknowledge() {
 
 .redirect-banner button:hover {
   background: rgba(42, 38, 33, 0.08);
-  color: var(--color-ink);
+  color: var(--color-text);
 }
 </style>
