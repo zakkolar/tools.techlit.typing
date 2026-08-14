@@ -48,8 +48,7 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
 
     <div class="tab-panel" role="tabpanel" v-else>
       <p>
-        Every setting is passed into the URL. You can use this to build links yourself,
-        e.g. with a spreadsheet formula. Parameters go after a <code>#</code>, written as
+        You can build links yourself (e.g. with a spreadsheet formula) by passing the settings into the end of the URL. Parameters go after a <code>#</code>, written as
         <code>key=value</code>. This sets the username:
       </p>
       <UrlExample :url="singleParamExample" />

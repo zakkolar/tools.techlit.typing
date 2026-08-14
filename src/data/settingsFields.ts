@@ -36,7 +36,7 @@ export const gameSettingsFields: ManifestField[] = [
     key: 'forceCorrectMistakes',
     type: 'boolean',
     default: true,
-    description: 'When checked, players cannot continue to type after a typo until they fix it.',
+    description: 'Prevent players from advancing until they correct typos.',
   },
   {
     label: 'Use sound',
@@ -49,7 +49,7 @@ export const gameSettingsFields: ManifestField[] = [
     label: 'Time limit (seconds)',
     key: 'seconds',
     type: 'number',
-    default: 0,
+    default: 120,
     description: 'Game time limit in seconds. Set to 0 for unlimited time.',
   },
   {

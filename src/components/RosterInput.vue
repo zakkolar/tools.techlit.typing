@@ -103,7 +103,7 @@ watch(
           <span
             class="info-icon"
             tabindex="0"
-            data-tooltip="An optional label shown in the list of links instead of the username. Useful when usernames are numeric or otherwise don't contain student names."
+            data-tooltip="An optional label for the link that corresponds to the student's game. Matches the username if you leave it empty."
           >
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -121,6 +121,7 @@ watch(
             class="text-field"
             v-model="row.username"
             :ref="(el) => setUsernameRef(el, index)"
+            placeholder = "EmmaWalker"
             @paste="onPaste($event, index, 'username')"
             @keydown.enter.prevent="onEnter(index, 'username')"
           />
@@ -128,7 +129,7 @@ watch(
             type="text"
             class="text-field"
             v-model="row.label"
-            :placeholder="row.username || ''"
+            :placeholder="row.username || 'Emma W'"
             :ref="(el) => setLabelRef(el, index)"
             @paste="onPaste($event, index, 'label')"
             @keydown.enter.prevent="onEnter(index, 'label')"

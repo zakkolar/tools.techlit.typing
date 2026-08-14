@@ -50,6 +50,7 @@ async function copyLink() {
         id="single-link-word"
         type="text"
         class="text-field word-input"
+        placeholder="EmmaWalker"
         v-model="word"
       />
     </div>
