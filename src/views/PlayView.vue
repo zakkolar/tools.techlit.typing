@@ -463,6 +463,7 @@ onUnmounted(() => {
     <div class="messageScreenModal" v-if="paused">
       <div id="startScreen" class="messageScreen">
         <h1>Username Practice <span v-if="started">(paused)</span></h1>
+        <p>Type your username again and again. Every {{settings.capacity}} letters fills a bar. How many can you fill?</p>
         <button @click="play">{{ started ? 'Resume' : 'Start' }}</button>
       </div>
     </div>
@@ -736,7 +737,6 @@ onUnmounted(() => {
   max-width: 90vw;
   width: 520px;
   overflow: auto;
-  font-size: 18px;
   background: var(--color-paper-raised);
   position: relative;
   margin-top: 10vh;
@@ -744,6 +744,17 @@ onUnmounted(() => {
   border-top: 4px solid var(--color-accent);
   border-radius: 6px;
   box-shadow: 0 8px 24px rgba(42, 38, 33, 0.18);
+  font-size: 21px;
+}
+
+.messageScreen h1 {
+  letter-spacing: 0.02em;
+  font-size: 38px;
+}
+
+.messageScreen p {
+  text-align: left;
+  color: var(--color-ink-soft);
 }
 
 #timeUp .fillables {
@@ -759,7 +770,7 @@ onUnmounted(() => {
 }
 
 .messageScreen button {
-  font-size: 20px;
+  font-size: 21px;
   background: var(--color-accent);
   color: var(--color-paper-raised);
   border-style: none;
