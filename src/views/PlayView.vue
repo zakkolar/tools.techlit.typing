@@ -108,7 +108,6 @@ function typeLetter(letter: string) {
     if (currentLetterIndex.value === charactersToType.value.length && correctLetter) {
       setWord(charactersToType.value.join(''))
       currentIncorrectLetters.value = 0
-      playSound('correct')
     }
   }
 }
