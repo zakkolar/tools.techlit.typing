@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import ExternalLink from "@/components/ExternalLink.vue";
 
 const origin = window.location.origin
@@ -7,6 +7,27 @@ const origin = window.location.origin
 const sampleGame = computed(()=> `${origin}/play#word=ChristopherRodriguez&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
 
 const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristopherRodriguez%0AJamalOkafor%0ASofiaMartinez%0AMiaNguyen&labels=Emma%20W%0AChris%20R%0AJamal%20O%0ASofia%20M%0AMia%20N&title=Username%20Practice&instructions=Click%20on%20your%20name%20below%20to%20start%20practicing.&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=false&showPlayAgain=true`)
+
+const openFaqs = reactive(new Set<string>())
+
+function isFaqOpen(id: string) {
+  return openFaqs.has(id)
+}
+
+function onFaqToggle(id: string, event: Event) {
+  const details = event.target as HTMLDetailsElement
+  if (details.open) {
+    openFaqs.add(id)
+  } else {
+    openFaqs.delete(id)
+  }
+  history.replaceState({ ...history.state, openFaqs: [...openFaqs] }, '', location.href)
+}
+
+onMounted(() => {
+  const savedOpenFaqs = (history.state as { openFaqs?: string[] } | null)?.openFaqs
+  savedOpenFaqs?.forEach((id) => openFaqs.add(id))
+})
 </script>
 
 <template>
@@ -27,7 +48,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
         </div>
       <section class="block">
         <div class="faq-list">
-          <details class="faq">
+          <details class="faq" :open="isFaqOpen('setup')" @toggle="onFaqToggle('setup', $event)">
             <summary>How do I set up the game?</summary>
             <div class="faq-content">
               <p>Build a link for each student with their username and game settings. Everything is stored in this game link - no need to create or manage accounts.</p>
@@ -66,7 +87,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
               </div>
             </div>
           </details>
-          <details class="faq">
+          <details class="faq" :open="isFaqOpen('long-usernames')" @toggle="onFaqToggle('long-usernames', $event)">
             <summary>What about students with long usernames?</summary>
             <div class="faq-content">
               <p>Each bar fills after a fixed number of letters (10 by default), not a full username. The length of the username does not impact the number of bars filled.</p>
@@ -78,7 +99,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
               </div>
             </div>
           </details>
-          <details class="faq">
+          <details class="faq" :open="isFaqOpen('privacy')" @toggle="onFaqToggle('privacy', $event)">
             <summary>Is this privacy-friendly?</summary>
             <div class="faq-content">
               <p>Yes! This game runs entirely in your browser. No data is transmitted to me or any third parties.</p>
@@ -89,7 +110,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
             </div>
           </details>
 
-          <details class="faq">
+          <details class="faq" :open="isFaqOpen('open-source')" @toggle="onFaqToggle('open-source', $event)">
             <summary>Is this open source?</summary>
             <div class="faq-content">
               <p>
@@ -99,7 +120,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
             </div>
           </details>
 
-          <details class="faq">
+          <details class="faq" :open="isFaqOpen('who-made-this')" @toggle="onFaqToggle('who-made-this', $event)">
             <summary>Who made this?</summary>
             <div class="faq-content">
               <p>
@@ -109,7 +130,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
             </div>
           </details>
 
-          <details class="faq">
+          <details class="faq" :open="isFaqOpen('other-activities')" @toggle="onFaqToggle('other-activities', $event)">
             <summary>Are there activities for other skills?</summary>
             <div class="faq-content">
               <p>Yes! Check out the collection <ExternalLink href="https://techlit.tools/">here</ExternalLink>.</p>
