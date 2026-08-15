@@ -1,20 +1,31 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import SingleLinkBuilder from '@/components/SingleLinkBuilder.vue'
 import ClassListBuilder from '@/components/ClassListBuilder.vue'
 import UrlExample from '@/components/UrlExample.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import { wordSettingsFields } from '@/data/settingsFields'
 
-type TabId = 'single' | 'class' | 'manual'
+type TabId = 'game' | 'class' | 'manual'
 
 const tabs: { id: TabId; label: string }[] = [
-  { id: 'single', label: 'Game link' },
+  { id: 'game', label: 'Game link' },
   { id: 'class', label: 'Class list' },
   { id: 'manual', label: 'Build it manually' },
 ]
 
-const activeTab = ref<TabId>('single')
+const route = useRoute()
+const router = useRouter()
+
+const activeTab = computed<TabId>(() => {
+  const tab = route.params.tab
+  return tabs.some((t) => t.id === tab) ? (tab as TabId) : 'game'
+})
+
+function selectTab(id: TabId) {
+  router.replace({ name: 'build', params: { tab: id } })
+}
 
 const origin = window.location.origin
 const singleParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed`)
@@ -32,13 +43,13 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
         class="tab"
         :class="{ active: activeTab === tab.id }"
         :aria-selected="activeTab === tab.id"
-        @click="activeTab = tab.id"
+        @click="selectTab(tab.id)"
       >
         {{ tab.label }}
       </button>
     </div>
 
-    <div class="tab-panel" role="tabpanel" v-if="activeTab === 'single'">
+    <div class="tab-panel" role="tabpanel" v-if="activeTab === 'game'">
       <SingleLinkBuilder />
     </div>
 
@@ -69,7 +80,6 @@ const multiParamExample = computed(() => `${origin}/play#word=JohnnyAppleseed&so
   margin-top: 20px;
   background: var(--color-surface);
   border: 1px solid var(--color-rule);
-  border-top: 3px solid var(--color-accent);
   border-radius: 6px;
   padding: 6px 20px 20px;
 }

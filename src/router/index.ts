@@ -18,6 +18,15 @@ const router = createRouter({
       name: 'links',
       component: () => import('@/views/LinksView.vue'),
     },
+    {
+      path: '/build',
+      redirect: '/build/game',
+    },
+    {
+      path: '/build/:tab',
+      name: 'build',
+      component: () => import('@/views/BuildLinkView.vue'),
+    },
   ],
 })
 

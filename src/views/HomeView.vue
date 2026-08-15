@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import LinkBuilderTabs from '@/components/LinkBuilderTabs.vue'
+import { computed } from 'vue'
 import ExternalLink from "@/components/ExternalLink.vue";
 
 const origin = window.location.origin
@@ -8,17 +7,6 @@ const origin = window.location.origin
 const sampleGame = computed(()=> `${origin}/play#word=ChristopherRodriguez&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=true&showPlayAgain=false`)
 
 const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristopherRodriguez%0AJamalOkafor%0ASofiaMartinez%0AMiaNguyen&labels=Emma%20W%0AChris%20R%0AJamal%20O%0ASofia%20M%0AMia%20N&title=Username%20Practice&instructions=Click%20on%20your%20name%20below%20to%20start%20practicing.&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=false&showPlayAgain=true`)
-
-const setupDetails = ref<HTMLDetailsElement | null>(null);
-const builder = ref<HTMLElement | null>(null);
-
-function openSetupGuide() {
-  const section = setupDetails.value;
-  const el = builder.value;
-  if (!section || !el) return
-  section.open = true
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
 </script>
 
 <template>
@@ -34,36 +22,47 @@ function openSetupGuide() {
             <a :href="sampleGame" class="btn btn-primary">Play sample game</a>
           </div>
           <div class="action-wrap">
-            <button type="button" class="btn btn-secondary" @click="openSetupGuide">Build a link</button>
+            <router-link to="/build" class="btn btn-secondary">Build a link</router-link>
           </div>
         </div>
       <section class="block">
         <div class="faq-list">
-          <details class="faq" ref="setupDetails">
+          <details class="faq">
             <summary>How do I set up the game?</summary>
             <div class="faq-content">
               <p>Build a link for each student with their username and game settings. Everything is stored in this game link - no need to create or manage accounts.</p>
               <p>There are three ways to do this:</p>
 
-              <ol class="setup-list">
-                <li>
-                  <b>Game link</b>
-                  <span>Enter the username and game settings for one student to build a game link. Copy the game link and share it directly with the student. <br><ExternalLink :href="sampleGame">Example game link</ExternalLink></span>
-                </li>
-                <li>
-                  <b>Class link</b>
-                  <span>Enter a list of usernames and game settings to build a page with the game link for every student. Copy the class link and share it with your students.
-                  <br><ExternalLink :href="sampleClass">Example class link</ExternalLink>
-                  </span>
-                </li>
-                <li>
-                  <b>Build it manually</b>
-                  <span>For more advanced use-cases, such as generating custom links via a spreadsheet formula, follow the documentation below to build the game links yourself.</span>
-                </li>
-              </ol>
-              <p>Use the tabs below to start building your links.</p>
-              <div ref="builder">
-                <LinkBuilderTabs />
+              <div class="setup-list">
+                <div class="setup-row">
+                  <p class="setup-title">Game link</p>
+                  <div class="setup-body">
+                    <p class="setup-desc">Enter the username and game settings for one student to build a game link. Copy the game link and share it directly with the student.</p>
+                    <div class="setup-actions">
+                      <router-link to="/build/game" class="btn btn-secondary btn-sm">Open builder</router-link>
+                      <ExternalLink :href="sampleGame" class="setup-example">Example game link</ExternalLink>
+                    </div>
+                  </div>
+                </div>
+                <div class="setup-row">
+                  <p class="setup-title">Class link</p>
+                  <div class="setup-body">
+                    <p class="setup-desc">Enter a list of usernames and game settings to build a page with the game link for every student. Copy the class link and share it with your students.</p>
+                    <div class="setup-actions">
+                      <router-link to="/build/class" class="btn btn-secondary btn-sm">Open builder</router-link>
+                      <ExternalLink :href="sampleClass" class="setup-example">Example class link</ExternalLink>
+                    </div>
+                  </div>
+                </div>
+                <div class="setup-row">
+                  <p class="setup-title">Build it manually</p>
+                  <div class="setup-body">
+                    <p class="setup-desc">For more advanced use-cases, such as generating custom links via a spreadsheet formula, follow the documentation below to build the game links yourself.</p>
+                    <div class="setup-actions">
+                      <router-link to="/build/manual" class="btn btn-secondary btn-sm">Open instructions</router-link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </details>
@@ -243,64 +242,65 @@ code {
 }
 
 .setup-list {
-  list-style: none;
-  counter-reset: setup-step;
+  display: flex;
+  flex-direction: column;
   margin: 0 0 1em;
-  padding: 0;
 }
 
-.setup-list li {
-  counter-increment: setup-step;
+.setup-row {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 10px 0;
+  gap: 20px;
+  padding: 16px 0;
   border-top: 1px solid var(--color-rule);
 }
 
-.setup-list li > b {
-  flex: 0 0 150px;
+.setup-title {
+  flex: 0 0 116px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  padding-top: 1px;
 }
 
-.setup-list li > span {
-  flex: 1;
+.setup-body {
+  flex: 1 1 auto;
   min-width: 0;
 }
 
+.setup-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 52ch;
+  margin: 0 0 12px;
+}
+
+.setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.setup-example {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.setup-example:hover {
+  color: var(--color-accent-deep);
+}
+
 @media (max-width: 560px) {
-  .setup-list li {
-    flex-wrap: wrap;
+  .setup-row {
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .setup-list li > b {
+  .setup-title {
     flex-basis: auto;
   }
-}
-
-.setup-list li:last-child {
-  border-bottom: 1px solid var(--color-rule);
-}
-
-.setup-list li::before {
-  content: counter(setup-step);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  margin-top: 0.1em;
-  border-radius: 50%;
-  background: var(--color-accent-tint);
-  color: var(--color-accent-deep);
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.setup-list b {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--color-text-secondary);
 }
 </style>
