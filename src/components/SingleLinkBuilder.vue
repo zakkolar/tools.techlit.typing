@@ -40,7 +40,7 @@ async function copyLink() {
 
 <template>
   <div class="single-link-builder">
-    <p class="form-intro">Set game settings, then copy the link at the bottom to share.</p>
+    <p class="form-intro">Set the username and settings, then copy the link to share.</p>
     <div class="form-row">
       <label class="form-row-label" for="single-link-word">
         <span class="form-row-name">{{ wordField.label }}</span>

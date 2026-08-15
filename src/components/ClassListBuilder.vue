@@ -58,7 +58,7 @@ async function copyLink() {
 
 <template>
   <div class="class-list-builder">
-    <p class="form-intro">Add your class list and game settings, then copy the link at the bottom to share.</p>
+    <p class="form-intro">Add your class list and settings, then copy the link to share.</p>
 
      <h2 class="settings-group-heading">Class page settings</h2>
 

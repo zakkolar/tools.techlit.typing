@@ -9,12 +9,14 @@ const sampleGame = computed(()=> `${origin}/play#word=ChristopherRodriguez&capac
 
 const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristopherRodriguez%0AJamalOkafor%0ASofiaMartinez%0AMiaNguyen&labels=Emma%20W%0AChris%20R%0AJamal%20O%0ASofia%20M%0AMia%20N&title=Username%20Practice&instructions=Click%20on%20your%20name%20below%20to%20start%20practicing.&capacity=10&showKeyboard=true&forceCorrectMistakes=true&sound=true&seconds=120&showTimer=false&showPlayAgain=true`)
 
-const setupDetails = ref<HTMLDetailsElement | null>(null)
+const setupDetails = ref<HTMLDetailsElement | null>(null);
+const builder = ref<HTMLElement | null>(null);
 
 function openSetupGuide() {
-  const el = setupDetails.value
-  if (!el) return
-  el.open = true
+  const section = setupDetails.value;
+  const el = builder.value;
+  if (!section || !el) return
+  section.open = true
   el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 </script>
@@ -40,7 +42,7 @@ function openSetupGuide() {
           <details class="faq" ref="setupDetails">
             <summary>How do I set up the game?</summary>
             <div class="faq-content">
-              <p>The username and other game settings are set in the URL that you share with your students. Each student gets their own game link with their username. This allows you to customize the game experience in a privacy-friendly way without having to manage student accounts.</p>
+              <p>Build a link for each student with their username and game settings. Everything is stored in this game link - no need to create or manage accounts.</p>
               <p>There are three ways to do this:</p>
 
               <ol class="setup-list">
@@ -60,7 +62,9 @@ function openSetupGuide() {
                 </li>
               </ol>
               <p>Use the tabs below to start building your links.</p>
-              <LinkBuilderTabs />
+              <div ref="builder">
+                <LinkBuilderTabs />
+              </div>
             </div>
           </details>
           <details class="faq">
@@ -80,7 +84,7 @@ function openSetupGuide() {
             <div class="faq-content">
               <p>Yes! This game runs entirely in your browser. No data is transmitted to me or any third parties.</p>
               <p>
-                When you customize the game, all information is stored in the URL after the
+                When you customize the game, all information is stored in the link after the
                 <code>#</code>. This information is kept in the browser. It is not sent back to the server.
               </p>
             </div>
