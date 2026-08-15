@@ -22,7 +22,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
             <a :href="sampleGame" class="btn btn-primary">Play sample game</a>
           </div>
           <div class="action-wrap">
-            <router-link to="/build" class="btn btn-secondary">Build a link</router-link>
+            <router-link to="/build" class="btn btn-secondary">Set up game</router-link>
           </div>
         </div>
       <section class="block">
@@ -39,7 +39,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
                   <div class="setup-body">
                     <p class="setup-desc">Enter the username and game settings for one student to build a game link. Copy the game link and share it directly with the student.</p>
                     <div class="setup-actions">
-                      <router-link to="/build/game" class="btn btn-secondary btn-sm">Open builder</router-link>
+                      <router-link to="/build/game" class="btn btn-secondary btn-sm">Open link builder</router-link>
                       <ExternalLink :href="sampleGame" class="setup-example">Example game link</ExternalLink>
                     </div>
                   </div>
@@ -49,7 +49,7 @@ const sampleClass = computed(()=> `${origin}/links#words=EmmaWalker%0AChristophe
                   <div class="setup-body">
                     <p class="setup-desc">Enter a list of usernames and game settings to build a page with the game link for every student. Copy the class link and share it with your students.</p>
                     <div class="setup-actions">
-                      <router-link to="/build/class" class="btn btn-secondary btn-sm">Open builder</router-link>
+                      <router-link to="/build/class" class="btn btn-secondary btn-sm">Open link builder</router-link>
                       <ExternalLink :href="sampleClass" class="setup-example">Example class link</ExternalLink>
                     </div>
                   </div>
